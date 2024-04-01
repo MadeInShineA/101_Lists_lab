@@ -3,6 +3,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
+
 /**
  * JUnit 5 regression tests for LinkedList laboratory
  *
@@ -276,5 +277,161 @@ import org.junit.jupiter.api.Test
       assertEquals("Dan", n.getLastElement().item, "'Dan' MUST be at the end")
       assertFalse(n.isPresent("Frank"), "'Frank' MUST not be in the list")
     }
+  }
+}
+
+class Node(var item: String, var nextNode: Node = null) {
+
+}
+
+class LinkedList() {
+  var head: Node = null
+
+  def addToStart(s: String): Unit = {
+    this.head = new Node(s, head)
+  }
+
+  def getSize(): Int = {
+    if (this.head == null) {
+      return 0
+    }
+    var currentNode: Node = this.head
+    var nodeCounter = 0
+    while (currentNode != null) {
+      nodeCounter += 1
+      currentNode = currentNode.nextNode
+    }
+    nodeCounter
+  }
+
+  def removeFirstElement(): Unit = {
+    if (this.head == null) {
+
+    } else {
+      this.head = this.head.nextNode
+    }
+  }
+
+  def getLastElement(): Node = {
+    var currentNode: Node = this.head
+    if (currentNode == null) {
+      return null
+    }
+    var res: Node = null
+    while (currentNode != null) {
+      res = currentNode
+      currentNode = currentNode.nextNode
+    }
+    res
+  }
+
+  def addToEnd(element: String): Unit = {
+    if (this.head == null) {
+      addToStart(element)
+    } else {
+      getLastElement().nextNode = new Node(element)
+    }
+  }
+
+  def isPresent(element: String): Boolean = {
+    var currentNode: Node = this.head
+    if (currentNode == null) {
+      return false
+    }
+    while (currentNode != null) {
+      if (currentNode.item == element) {
+        return true
+      }
+      currentNode = currentNode.nextNode
+    }
+    false
+  }
+
+  def findElement(s: String): Node = {
+    var currentNode: Node = this.head
+    if (currentNode == null) {
+      return null
+    }
+    while (currentNode != null) {
+      if (currentNode.item == s) {
+        return currentNode
+      }
+      currentNode = currentNode.nextNode
+    }
+    null
+  }
+
+  def swapElements(e1: String, e2: String): Unit = {
+    val node1 = findElement(e1)
+    val node2 = findElement(e2)
+
+    //      require(node1 != null && node2 != null)
+    if (node1 != null && node2 != null) {
+      val temp = node1.item
+      node1.item = node2.item
+      node2.item = temp
+    }
+  }
+
+  def removeLastElement(): Unit = {
+    if (this.head == null || this.head.nextNode == null) {
+      this.head = null
+      return
+    }
+    var currentNode = this.head
+    while (currentNode.nextNode.nextNode != null) {
+      currentNode = currentNode.nextNode
+    }
+    currentNode.nextNode = null
+  }
+
+  def removeElement(element: String): Unit = {
+    var parentNode: Node = this.head
+    if (parentNode == null) {
+
+    }
+    else {
+      if (parentNode.item == element) {
+        this.head = parentNode.nextNode
+        return
+      }
+      var childNode = parentNode.nextNode
+      while (childNode != null) {
+        if (childNode.item == element) {
+          parentNode.nextNode = childNode.nextNode
+          return
+        }
+        parentNode = childNode
+        childNode = parentNode.nextNode
+      }
+    }
+  }
+
+  def insertAfter(before: String, after: String): Unit = {
+    var currentNode = this.head
+    if (currentNode == null) {
+
+    } else {
+      while (currentNode != null) {
+        if (currentNode.item == before) {
+          val nextNode = currentNode.nextNode
+          currentNode.nextNode = new Node(after, nextNode)
+        }
+        currentNode = currentNode.nextNode
+      }
+    }
+  }
+
+
+  override def toString: String = {
+    var res: String = ""
+    var currentNode: Node = this.head
+    res += s"List content (size ${this.getSize()}) : "
+    while (currentNode != null) {
+      res += s"${currentNode.item} -> "
+      currentNode = currentNode.nextNode
+    }
+    res += "null"
+    res
   }
 }
