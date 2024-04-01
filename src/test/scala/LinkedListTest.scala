@@ -422,7 +422,6 @@ class LinkedList() {
     }
   }
 
-
   override def toString: String = {
     var res: String = ""
     var currentNode: Node = this.head
