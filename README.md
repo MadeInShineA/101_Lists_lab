@@ -1,5 +1,5 @@
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
-![Workflow status](https://github.com/ISC-HEI/101_Lists_lab/actions/workflows/run-gradle.yaml/badge.svg)
+![Workflow status](https://github.com/MadeInShineA/101_Lists_lab/actions/workflows/run-gradle.yaml/badge.svg)
 
 <p align="center">
   <a href="https://isc.hevs.ch">
